@@ -3,13 +3,11 @@ import { CiUser } from "react-icons/ci";
 import { CiSearch } from "react-icons/ci";
 import { jwtDecode } from "jwt-decode";
 
-
 function CreateRequest() {
     const [fetchedData, setFetchedData] = useState([]);
     const [filteredUser, setFilteredUser] = useState([{}]);
-    const [selectedUser, setSelectedUser] = useState('');
-    const [sendRequest, setSendRequest] = useState(false)
-    
+    const [selectedUser, setSelectedUser] = useState("");
+    const [sendRequest, setSendRequest] = useState(false);
 
     useEffect(() => {
         fetch("http://localhost:3000/fetch-alumni-data", {
@@ -37,14 +35,14 @@ function CreateRequest() {
             });
     }, []);
 
-
     function handleSearch(event) {
         event.preventDefault();
         const formData = new FormData(event.target);
         const data = Object.fromEntries(formData.entries());
-        const user = fetchedData.filter((user) => user.userName === data.username)
+        const user = fetchedData.filter(
+            (user) => user.userName === data.username
+        );
         setFilteredUser(user);
-
     }
 
     const openModal = (userData) => {
@@ -52,7 +50,7 @@ function CreateRequest() {
         console.log(selectedUser);
         console.log(filteredUser);
     };
-  
+
     const closeModal = () => {
         setSelectedUser(null);
     };
@@ -65,49 +63,58 @@ function CreateRequest() {
         event.preventDefault();
         const formData = new FormData(event.target);
         const data = Object.fromEntries(formData.entries());
-        
 
-
-        const token = localStorage.getItem("token"); 
+        const token = localStorage.getItem("token");
         const decodedToken = jwtDecode(token);
-
 
         const requestDetails = {
             alumniID: filteredUser[0].alumniID,
             message: data.message,
+        };
 
-        }
-
-        const response = await fetch('http://localhost:3000/send-request', {
-            method: 'POST',
-            headers: { "Content-Type": "application/json",
+        const response = await fetch("http://localhost:3000/send-request", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
             body: JSON.stringify(requestDetails),
-          });
+        });
 
         if (response.ok) {
             const data = await response.json();
-            alert(data.message)
+            alert(data.message);
         }
 
         if (!response.ok) {
             const data = await response.json();
-            alert(data.message)
+            alert(data.message);
             throw new Error(data.message);
         }
-
-
-    } 
+    }
 
     return (
         <>
             <div className="flex content-center justify-center  m-10 p-10 h-full pt-0">
                 <div className="flex content-center justify-center  flex-col w-full">
-                    <form action="" className="flex justify-center items-center m-5 " onSubmit={(event) => handleSearch(event)}>
-                        <input type="text"  placeholder="Enter the User Name" name="username" size={50} className="text-center p-1 shadow-md rounded-md"/>
-                        <button type='submit' className="ml-2 text-xl shadow-md h-full p-1 rounded-md"><CiSearch /></button>
-                        
+                    <form
+                        action=""
+                        className="flex justify-center items-center m-5 "
+                        onSubmit={(event) => handleSearch(event)}
+                    >
+                        <input
+                            type="text"
+                            placeholder="Enter the User Name"
+                            name="username"
+                            size={50}
+                            className="text-center p-1 shadow-md rounded-md"
+                        />
+                        <button
+                            type="submit"
+                            className="ml-2 text-xl shadow-md h-full p-1 rounded-md"
+                        >
+                            <CiSearch />
+                        </button>
                     </form>
                     <div>
                         <div>
@@ -135,7 +142,14 @@ function CreateRequest() {
                                 </div>
 
                                 <div className={`font-semibold `}>
-                                    <button onClick={(e) => {handleRequest(); e.stopPropagation();}}>Send Request</button>
+                                    <button
+                                        onClick={(e) => {
+                                            handleRequest();
+                                            e.stopPropagation();
+                                        }}
+                                    >
+                                        Send Request
+                                    </button>
                                     {}
                                 </div>
                             </div>
@@ -144,45 +158,72 @@ function CreateRequest() {
                 </div>
             </div>
 
-            
-            { selectedUser && (
-                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50" onClick={closeModal}>
-                    <div 
+            {selectedUser && (
+                <div
+                    className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+                    onClick={closeModal}
+                >
+                    <div
                         className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md relative"
                         onClick={(e) => e.stopPropagation()}
                     >
-                        <button 
+                        <button
                             className="absolute top-2 right-2 text-gray-400 hover:text-gray-600 text-2xl"
                             onClick={closeModal}
                         >
                             &times;
                         </button>
                         <h2 className="text-xl font-bold mb-4">User Details</h2>
-                        <p><strong>Name:</strong> {filteredUser[0].userName}</p>
-                        <p><strong>Achievements:</strong> {filteredUser[0].achievements}</p>
-                        <p><strong>Qualification:</strong> {filteredUser[0].qualification}</p>
-                        <p><strong>Email:</strong> {filteredUser[0].email}</p>
-                        <p><strong>Availability Details:</strong> {filteredUser[0].availabilityDetails}</p>
-                        <p><strong>Experience:</strong> {filteredUser[0].experience}</p>
+                        <p>
+                            <strong>Name:</strong> {filteredUser[0].userName}
+                        </p>
+                        <p>
+                            <strong>Achievements:</strong>{" "}
+                            {filteredUser[0].achievements}
+                        </p>
+                        <p>
+                            <strong>Qualification:</strong>{" "}
+                            {filteredUser[0].qualification}
+                        </p>
+                        <p>
+                            <strong>Email:</strong> {filteredUser[0].email}
+                        </p>
+                        <p>
+                            <strong>Availability Details:</strong>{" "}
+                            {filteredUser[0].availabilityDetails}
+                        </p>
+                        <p>
+                            <strong>Experience:</strong>{" "}
+                            {filteredUser[0].experience}
+                        </p>
                     </div>
                 </div>
             )}
 
-            { sendRequest && (
-                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50" onClick={handleRequest}>
-                    <div 
+            {sendRequest && (
+                <div
+                    className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+                    onClick={handleRequest}
+                >
+                    <div
                         className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md relative"
                         onClick={(e) => e.stopPropagation()}
                     >
-                        <button 
+                        <button
                             className="absolute top-2 right-2 text-gray-400 hover:text-gray-600 text-2xl"
                             onClick={handleRequest}
                         >
                             &times;
                         </button>
-                        <h2 className="text-xl font-bold mb-4">Enter The Message</h2>
+                        <h2 className="text-xl font-bold mb-4">
+                            Enter The Message
+                        </h2>
                         <form action="" onSubmit={handleSendingRequest}>
-                            <textarea name="message" id="message" className="w-full"></textarea>
+                            <textarea
+                                name="message"
+                                id="message"
+                                className="w-full"
+                            ></textarea>
                             <button type="submit">Send Request</button>
                         </form>
                     </div>

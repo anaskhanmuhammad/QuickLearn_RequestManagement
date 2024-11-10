@@ -6,8 +6,7 @@ import RequestDashboard from "./components/RequestDashboard";
 function RequestManagement() {
     return (
         <div className="w-5/6 ml-[16.667%] h-full">
-          
-            <RequestDashboard/>
+            <RequestDashboard />
             <Outlet></Outlet>
         </div>
     );

@@ -3,11 +3,9 @@ import { useContext } from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 
-
-
-const ProtectedRoute = ({allowedUserType})=> {
+const ProtectedRoute = ({ allowedUserType }) => {
     // const {userType} = useContext(context);
-    const token = localStorage.getItem("token"); 
+    const token = localStorage.getItem("token");
     if (!token) {
         // return <Navigate to="/" />; // Redirect to login if no token exists
     }
@@ -21,7 +19,7 @@ const ProtectedRoute = ({allowedUserType})=> {
         return <Navigate to="/" replace />;
     }
 
-    return<><Outlet></Outlet></>
-}
+    return <Outlet></Outlet>;
+};
 
 export default ProtectedRoute;

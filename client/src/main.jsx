@@ -11,7 +11,7 @@ import Login from "./screens/Auth/Login";
 // import ProfileAndPersonalization from "./screens/Student/ProfileAndPersonalization/ProfileAndPersonalization";
 // import ProgressTrackingAndAnalytics from "./screens/Student/ProgressTrackingAndAnalytics/ProgressTrackingAndAnalytics";
 import RequestManagement from "./screens/Student/RequestManagement/RequestManagement";
-import RequestManagement_Alumni from "./screens/Alumni/RequestManagement/RequestManagement";
+import RequestManagementAlumni from "./screens/Alumni/RequestManagement/RequestManagement";
 // import SelfPacedLearning from "./screens/Student/SelfPacedLearning/SelfPacedLearning";
 import CreateRequest from './screens/Student/RequestManagement/CreateRequest';
 import ViewRequests from "./screens/Student/RequestManagement/ViewRequests";
@@ -78,7 +78,7 @@ const router = createBrowserRouter([
                         children: [
                             {
                                 path: 'RequestManagement',
-                                element: <RequestManagement_Alumni/>,
+                                element: <RequestManagementAlumni/>,
                                 children: [
                                     {
                                         path: 'ViewRequests',
