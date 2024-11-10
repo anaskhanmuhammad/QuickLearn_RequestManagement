@@ -2,7 +2,7 @@ import { CiUser } from "react-icons/ci";
 
 const ViewRequest = ({ requestData, openModal }) => {
     return (
-        <>
+
             <div
                 className="flex items-center p-4 border border-gray-200 rounded-lg cursor-pointer hover:shadow-md transition-shadow duration-300 bg-white shadow-md mb-1"
                 onClick={() => openModal(requestData)}
@@ -27,7 +27,7 @@ const ViewRequest = ({ requestData, openModal }) => {
 
                 <div className={`font-semibold `}>{requestData.status}</div>
             </div>
-        </>
+
     );
 };
 

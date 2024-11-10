@@ -1,5 +1,3 @@
-import { useContext } from "react";
-// import { context } from "../store/store";
 import { Navigate, Outlet } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 

@@ -64,8 +64,7 @@ function CreateRequest() {
         const formData = new FormData(event.target);
         const data = Object.fromEntries(formData.entries());
 
-        const token = localStorage.getItem("token");
-        const decodedToken = jwtDecode(token);
+
 
         const requestDetails = {
             alumniID: filteredUser[0].alumniID,

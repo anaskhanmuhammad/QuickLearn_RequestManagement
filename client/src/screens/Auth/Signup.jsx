@@ -52,7 +52,7 @@ function Signup() {
     };
 
     return (
-        <>
+
             <div className="flex justify-center items-center flex-col h-screen w-screen">
                 <div className="flex justify-center items-center flex-col bg-customGrey w-3/6 h-auto text-white">
                     <div className="text-4xl m-10">
@@ -154,7 +154,7 @@ function Signup() {
                     </form>
                 </div>
             </div>
-        </>
+
     );
 }
 

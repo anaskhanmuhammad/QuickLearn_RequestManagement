@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 
 function RequestDashboard() {
     return (
-        <>
+
             <div className="flex justify-center items-center flex-col  w-full h-full p-1 shadow-lg ">
                 <div className="mt-5 mb-8 w-full text-center">
                     Request Management
@@ -16,7 +16,7 @@ function RequestDashboard() {
                 </ul>
             </div> */}
             </div>
-        </>
+
     );
 }
 
