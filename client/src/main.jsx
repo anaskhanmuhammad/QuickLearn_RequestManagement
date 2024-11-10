@@ -4,16 +4,20 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
 import App from "./App";
 import Student from "./screens/Student/Student";
-import Teacher from "./screens/Teacher/Teacher";
+import Alumni from "./screens/Alumni/Alumni";
 import Signup from "./screens/Auth/Signup";
 import Login from "./screens/Auth/Login";
-import BridgingAlumniAndStudents from "./screens/Student/BridgingAlumniAndStudents/BridgingAlumniAndStudents";
-import ProfileAndPersonalization from "./screens/Student/ProfileAndPersonalization/ProfileAndPersonalization";
-import ProgressTrackingAndAnalytics from "./screens/Student/ProgressTrackingAndAnalytics/ProgressTrackingAndAnalytics";
+// import BridgingAlumniAndStudents from "./screens/Student/BridgingAlumniAndStudents/BridgingAlumniAndStudents";
+// import ProfileAndPersonalization from "./screens/Student/ProfileAndPersonalization/ProfileAndPersonalization";
+// import ProgressTrackingAndAnalytics from "./screens/Student/ProgressTrackingAndAnalytics/ProgressTrackingAndAnalytics";
 import RequestManagement from "./screens/Student/RequestManagement/RequestManagement";
-import SelfPacedLearning from "./screens/Student/SelfPacedLearning/SelfPacedLearning";
+import RequestManagement_Alumni from "./screens/Alumni/RequestManagement/RequestManagement";
+// import SelfPacedLearning from "./screens/Student/SelfPacedLearning/SelfPacedLearning";
+import CreateRequest from './screens/Student/RequestManagement/CreateRequest';
+import ViewRequests from "./screens/Student/RequestManagement/ViewRequests";
+import ViewRequestsAlumni from "./screens/Alumni/RequestManagement/ViewRequests";
 import ProtectedRoute from "./components/ProtectedRoute";
-import ContextProvider from "./store/store";
+// import ContextProvider from "./store/store";
 
 const router = createBrowserRouter([
     {
@@ -32,7 +36,7 @@ const router = createBrowserRouter([
                 path: "Student",
                 element: (
                     <ProtectedRoute
-                        allowedUserType={"Student"}
+                        allowedUserType={"student"}
                     >
                     </ProtectedRoute> 
                     
@@ -43,42 +47,45 @@ const router = createBrowserRouter([
                         element: <Student></Student>,
                         children: [
                             {
-                                path: "BridgingAlumniAndStudents",
-                                element: <BridgingAlumniAndStudents />,
-                            },
-                            {
-                                path: "ProfileAndPersonalization",
-                                element: <ProfileAndPersonalization />,
-                            },
-                            {
-                                path: "ProgressTrackingAndAnalytics",
-                                element: <ProgressTrackingAndAnalytics />,
-                            },
-                            {
                                 path: "RequestManagement",
                                 element: <RequestManagement />,
-                            },
-                            {
-                                path: "SelfPacedLearning",
-                                element: <SelfPacedLearning />,
+                                children: [
+                                    {
+                                        path: 'CreateRequest',
+                                        element: <CreateRequest></CreateRequest>
+                                    },
+                                    {
+                                        path: 'ViewRequests',
+                                        element: <ViewRequests/>
+                                    },
+                                ]
                             },
                         ],
                     },
                 ],
             },
             {
-                path: "Teacher",
+                path: "alumni",
                 element: (
                     <ProtectedRoute
-                        allowedUserType={"Teacher"}
+                        allowedUserType={"alumni"}
                     ></ProtectedRoute>
                 ),
                 children: [
                   {
                         path: "",
-                        element: <Teacher></Teacher>,
+                        element: <Alumni></Alumni>,
                         children: [
-
+                            {
+                                path: 'RequestManagement',
+                                element: <RequestManagement_Alumni/>,
+                                children: [
+                                    {
+                                        path: 'ViewRequests',
+                                        element: <ViewRequestsAlumni></ViewRequestsAlumni>
+                                    },
+                                ]
+                            },
                         ]
                   }
                 ],
@@ -88,9 +95,7 @@ const router = createBrowserRouter([
 ]);
 
 createRoot(document.getElementById("root")).render(
-    <ContextProvider>
         <StrictMode>
             <RouterProvider router={router} />
         </StrictMode>
-    </ContextProvider>
 );

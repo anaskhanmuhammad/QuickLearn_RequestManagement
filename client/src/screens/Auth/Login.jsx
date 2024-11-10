@@ -1,12 +1,14 @@
 import React, { useContext, useState } from "react";
 import { redirect, useNavigate } from "react-router-dom";
-import { context } from "../../store/store";
+// import { context } from "../../store/store";
+import { jwtDecode } from "jwt-decode";
+
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
-  const {userType, setUserType} = useContext(context);
+  // const {userType, setUserType} = useContext(context);
 
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -16,8 +18,6 @@ function Login() {
     }
 
 
-    
-    
       try {
         const response = await fetch('http://localhost:3000/login', {
           method: 'POST',
@@ -27,12 +27,19 @@ function Login() {
 
         if (response.ok) {
           const data = await response.json();
-          // console.log(data.message);
+
           alert(data.message);
-          console.log(data.userType)
-          setUserType(data.userType);
-          console.log(`/${data.userType}`)
-          navigate(`/${data.userType}`);
+
+          if (data.token) {
+            localStorage.setItem("token", data.token);
+            console.log("User logged in and token saved to localStorage");
+          } else {
+              alert("Login failed");
+              throw new Error('Login Failed');
+          }
+
+          const decodedToken = jwtDecode(data.token);
+          navigate(`/${decodedToken?.userType}`);
         }
 
         if (!response.ok) {
@@ -44,11 +51,8 @@ function Login() {
       }
       catch (error) {
         console.log(error);
+        alert(error)
       }
-
-      
-    
-
   } 
 
 
